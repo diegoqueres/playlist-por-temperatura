@@ -1,13 +1,12 @@
 package net.diegoqueres.playlistportemperatura.entities;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Representa uma localidade onde foi solicitada uma recomendação de playlist.
+ * Representa uma cidade onde foi solicitada uma recomendação de playlist.
  * 
  * @author Diego Queres
  * @since 29 de jun de 2020
@@ -21,6 +20,8 @@ public class City implements Serializable {
 	private Long id;
 
 	private String name;
+
+	private Country country;
 
 	private Float latitude;
 
@@ -66,6 +67,14 @@ public class City implements Serializable {
 		this.longitude = longitude;
 	}
 
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,8 +102,8 @@ public class City implements Serializable {
 
 	@Override
 	public String toString() {
-		return "City [id=" + id + ", name=" + name + ", latitude=" + latitude + ", longitude=" + longitude + "]";
+		return "City [id=" + id + ", name=" + name + ", country=" + country + ", latitude=" + latitude + ", longitude="
+				+ longitude + "]";
 	}
-	
 
 }

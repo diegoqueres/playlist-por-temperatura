@@ -3,6 +3,7 @@ package net.diegoqueres.playlistportemperatura.services;
 import net.diegoqueres.playlistportemperatura.entities.City;
 import net.diegoqueres.playlistportemperatura.entities.Recommendation;
 import net.diegoqueres.playlistportemperatura.entities.User;
+import net.diegoqueres.playlistportemperatura.enums.Genre;
 
 /**
  * Serviço que realiza as recomendações e gera dados para estatísticas das
@@ -15,12 +16,20 @@ import net.diegoqueres.playlistportemperatura.entities.User;
 public interface RecommendationService {
 
 	/**
-	 * Solicita uma recomendação de playlist's de acordo com a temperatura.
+	 * Solicita uma recomendação de playlist de acordo com a temperatura.
 	 * 
 	 * @param user
 	 * @param city
-	 * @return
+	 * @return Recomendação de playlist.
 	 */
 	Recommendation requestRecommendation(User user, City city);
+
+	/**
+	 * Obtêm o gênero musical recomendado, de acordo com a temperatura.
+	 * 
+	 * @param temperature em graus celsius
+	 * @return Gênero musical recomendado.
+	 */
+	Genre getGenreByTemperature(Float temperature);
 
 }

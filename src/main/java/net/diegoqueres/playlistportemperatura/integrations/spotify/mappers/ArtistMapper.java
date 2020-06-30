@@ -1,14 +1,16 @@
 package net.diegoqueres.playlistportemperatura.integrations.spotify.mappers;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Representa um artista no endpoint da API do Spotify.
+ * Mapper da música no JSON que a API retorna.
  * 
  * @author Diego Queres
  * @since 29 de jun de 2020
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ArtistMapper {
 
 	@JsonProperty("id")
@@ -16,14 +18,6 @@ public class ArtistMapper {
 
 	@JsonProperty("name")
 	private String name;
-
-	public ArtistMapper() {
-	}
-
-	public ArtistMapper(String id, String name) {
-		this.id = id;
-		this.name = name;
-	}
 
 	public String getId() {
 		return id;

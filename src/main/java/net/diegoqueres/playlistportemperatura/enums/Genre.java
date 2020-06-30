@@ -10,22 +10,27 @@ package net.diegoqueres.playlistportemperatura.enums;
  *
  */
 public enum Genre {
-	ROCK(1, "rock,rock-n-roll"), POP(2, "pop"), CLASSICAL(3, "classical");
+	ROCK(1, "rock"), POP(2, "pop"), CLASSICAL(3, "classical");
 
 	private int code;
-	private String value;
+	private String description;
 
-	private Genre(int code, String value) {
+	private Genre(int code, String description) {
 		this.code = code;
+		this.description = description;
 	}
 
 	public int getCode() {
 		return code;
 	}
 
+	public String getDescription() {
+		return this.toString();
+	}
+	
 	@Override
 	public String toString() {
-		return value;
+		return description;
 	}
 
 	public static Genre valueOf(int code) {

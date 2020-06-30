@@ -2,7 +2,6 @@ package net.diegoqueres.playlistportemperatura.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import net.diegoqueres.playlistportemperatura.enums.Genre;
-import net.diegoqueres.playlistportemperatura.integrations.spotify.mappers.MusicMapper;
+import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Playlist;
 
 /**
  * Representa uma recomendação de playlist por parte do usuário. Estes dados são
@@ -43,7 +42,7 @@ public class Recommendation implements Serializable {
 	private Float temperature;
 
 	@Transient
-	private List<MusicMapper> musics;
+	private Playlist playlist;
 
 	public Recommendation() {
 	}
@@ -64,12 +63,12 @@ public class Recommendation implements Serializable {
 		this.city = city;
 	}
 
-	public List<MusicMapper> getMusics() {
-		return musics;
+	public Playlist getPlaylist() {
+		return playlist;
 	}
 
-	public void setMusics(List<MusicMapper> musics) {
-		this.musics = musics;
+	public void setPlaylist(Playlist playlist) {
+		this.playlist = playlist;
 	}
 
 	public Instant getMoment() {
@@ -127,6 +126,12 @@ public class Recommendation implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Recommendation [id=" + id + ", city=" + city + ", moment=" + moment + ", user=" + user + ", genre="
+				+ genre + ", temperature=" + temperature + ", playlist=" + playlist + "]";
 	}
 
 }

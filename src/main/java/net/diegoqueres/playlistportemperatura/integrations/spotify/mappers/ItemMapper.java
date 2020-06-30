@@ -1,18 +1,19 @@
 package net.diegoqueres.playlistportemperatura.integrations.spotify.mappers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Representa uma música no endpoint da API do Spotify.
+ * Mapper da música no JSON que a API retorna.
  * 
  * @author Diego Queres
  * @since 29 de jun de 2020
  *
  */
-public class MusicMapper {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ItemMapper {
 
 	@JsonProperty("id")
 	private String id;
@@ -22,15 +23,6 @@ public class MusicMapper {
 
 	@JsonProperty("artists")
 	private List<ArtistMapper> artists;
-
-	public MusicMapper() {
-	}
-
-	public MusicMapper(String id, String name) {
-		this.artists = new ArrayList<>();
-		this.id = id;
-		this.name = name;
-	}
 
 	public String getId() {
 		return id;
