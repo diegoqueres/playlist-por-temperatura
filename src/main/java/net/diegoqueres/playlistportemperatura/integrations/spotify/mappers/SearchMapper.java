@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Mapper para leitura do JSON de busca na API.
+ * Mapper para leitura do resultado da busca na API.
  * 
  * @author Diego Queres
  * @since 30 de jun de 2020

@@ -32,4 +32,12 @@ public interface RecommendationService {
 	 */
 	Genre getGenreByTemperature(Float temperature);
 
+	/**
+	 * Grava uma nova recomendação.
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	Recommendation insert(Recommendation obj);
+
 }

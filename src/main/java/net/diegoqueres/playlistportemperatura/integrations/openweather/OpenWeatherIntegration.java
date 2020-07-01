@@ -72,16 +72,18 @@ public class OpenWeatherIntegration implements Integration<City, Weather> {
 	}
 
 	private Weather parseToWeather(WeatherMapper mapper) {
-		var city = new City();
-		city.setId(mapper.getCityId());
-		city.setName(mapper.getCityName());
-		city.setLatitude(mapper.getLat());
-		city.setLongitude(mapper.getLng());
-		city.setCountry(mapper.getCountry());
-
 		var weather = new Weather();
 		weather.setTemperature(mapper.getTemperature());
-		weather.setCity(city);
+
+		if (!mapper.getCityName().isEmpty()) {
+			var city = new City();
+			city.setId(mapper.getCityId());
+			city.setName(mapper.getCityName());
+			city.setLatitude(mapper.getLat());
+			city.setLongitude(mapper.getLng());
+			city.setCountry(mapper.getCountry());
+			weather.setCity(city);
+		}
 
 		return weather;
 

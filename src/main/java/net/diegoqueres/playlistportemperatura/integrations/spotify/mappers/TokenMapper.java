@@ -3,7 +3,12 @@ package net.diegoqueres.playlistportemperatura.integrations.spotify.mappers;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+/**
+ * Representa o token retornado pela API ao autenticar.
+ * @author Diego Queres
+ * @since 1 de jul de 2020
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TokenMapper {
 

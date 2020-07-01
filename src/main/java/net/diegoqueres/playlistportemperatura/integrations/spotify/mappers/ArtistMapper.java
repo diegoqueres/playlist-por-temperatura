@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Mapper da música no JSON que a API retorna.
+ * Mapper do artista da música no JSON que a API retorna.
  * 
  * @author Diego Queres
  * @since 29 de jun de 2020

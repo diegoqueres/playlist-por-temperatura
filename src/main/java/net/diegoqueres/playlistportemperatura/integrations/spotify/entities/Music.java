@@ -3,6 +3,12 @@ package net.diegoqueres.playlistportemperatura.integrations.spotify.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa uma música sugerida pela aplicação (em memória).
+ * @author Diego Queres
+ * @since 1 de jul de 2020
+ *
+ */
 public class Music {
 	private String id;
 	private String name;

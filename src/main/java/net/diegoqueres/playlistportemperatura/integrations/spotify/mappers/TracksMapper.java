@@ -4,6 +4,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Mapper que encapsula a lista de músicas no resultado da API.
+ * 
+ * @author Diego Queres
+ * @since 1 de jul de 2020
+ *
+ */
 public class TracksMapper {
 
 	@JsonProperty("items")

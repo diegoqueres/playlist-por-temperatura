@@ -1,5 +1,11 @@
 package net.diegoqueres.playlistportemperatura.integrations.spotify.entities;
 
+/**
+ * Representa o artista de uma música sugerida pela aplicação (em memória).
+ * @author Diego Queres
+ * @since 1 de jul de 2020
+ *
+ */
 public class Artist {
 	private String id;
 	private String name;

@@ -1,7 +1,17 @@
 package net.diegoqueres.playlistportemperatura.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Representa um país associado à cidade.
@@ -11,16 +21,24 @@ import javax.persistence.Id;
  *
  */
 @Entity
+@Table(name = "countries")
 public class Country {
 	@Id
 	private Integer id;
 
+	@NotNull
 	private String code;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<City> cities;
+
 	public Country() {
+		cities = new ArrayList<>();
 	}
 
 	public Country(Integer id, String code) {
+		this();
 		this.id = id;
 		this.code = code;
 	}
@@ -43,6 +61,10 @@ public class Country {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public List<City> getCities() {
+		return cities;
 	}
 
 	@Override

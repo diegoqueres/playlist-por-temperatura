@@ -7,18 +7,20 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Optional;
-
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import net.diegoqueres.playlistportemperatura.entities.City;
+import net.diegoqueres.playlistportemperatura.entities.Country;
 import net.diegoqueres.playlistportemperatura.entities.Recommendation;
 import net.diegoqueres.playlistportemperatura.entities.User;
 import net.diegoqueres.playlistportemperatura.enums.Genre;
+import net.diegoqueres.playlistportemperatura.enums.Role;
 import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Playlist;
+import net.diegoqueres.playlistportemperatura.repositories.UserRepository;
 import net.diegoqueres.playlistportemperatura.services.exceptions.ResourceNotFoundException;
 
 /**
@@ -33,12 +35,18 @@ public class RecommendationServiceTest {
 
 	@Autowired
 	private RecommendationService service;
+	
+	@Autowired
+	private UserService userService;
 
 	@Test
 	public void testRequestRecommendationByCity() {
-		User user = new User();
+		User user = userService.findAll().get(5);
+		Country country = new Country();
+		country.setCode("BR");
 		City city = new City();
 		city.setName("Campinas");
+		city.setCountry(country);
 
 		Recommendation recommendation = service.requestRecommendation(user, city);
 		Playlist playlist = recommendation.getPlaylist();
@@ -50,7 +58,7 @@ public class RecommendationServiceTest {
 		
 		//testa se recuperou corretamente dados de localidade válida
 		assertNotNull(recommendation.getCity().getId());
-		var country = recommendation.getCity().getCountry();
+		country = recommendation.getCity().getCountry();
 		assertNotNull(country.getId());
 		assertNotNull(country.getCode());
 
@@ -58,7 +66,7 @@ public class RecommendationServiceTest {
 
 	@Test
 	public void testRequestRecommendationByLatitudeLongitude() {
-		User user = new User();
+		User user = userService.findAll().get(5);
 		City city = new City();
 		city.setLatitude(-22.9519767f);
 		city.setLongitude(-47.0418347f);
@@ -75,6 +83,11 @@ public class RecommendationServiceTest {
 	@Test
 	public void testRequestRecommendationLocationNotFound() {
 		User user = new User();
+		user.setName("Teste");
+		user.setEmail("dkfdfkdkfk34939493@user.com.br");
+		user.setPassword("oeorieor3430340930");
+		user.setRole(Role.USER);
+		
 		City city = new City();
 		city.setName("d343434adfdfdr434343cadabralslsl");
 
@@ -86,7 +99,7 @@ public class RecommendationServiceTest {
 
 	@Test
 	public void testRequestRecommendationLocationWithInvalidGeographicCoordinates() {
-		User user = new User();
+		User user = userService.findAll().get(5);
 		City city = new City();
 		city.setLatitude(100f);
 		city.setLongitude(-200f);
@@ -106,7 +119,7 @@ public class RecommendationServiceTest {
 		final int LAT = 0, LNG = 1;
 		float[] SOUTH_PACIFIC_LOCATION = new float[] { -35.7542865f, -135.3123678f };
 
-		User user = new User();
+		User user = userService.findAll().get(5);
 		City city = new City();
 		city.setLatitude(SOUTH_PACIFIC_LOCATION[LAT]);
 		city.setLongitude(SOUTH_PACIFIC_LOCATION[LNG]);
@@ -118,9 +131,8 @@ public class RecommendationServiceTest {
 		assertNotNull(playlist.getMusics());
 		assertFalse(playlist.getMusics().isEmpty());
 		
-		//testa se não salvou dados de localidade inválida
-		assertTrue(recommendation.getCity().getName().isEmpty());
-		assertNull(recommendation.getCity().getCountry());
+		//Verifica se não foi salva localidade não registrada
+		assertNull(recommendation.getCity());
 
 	}
 

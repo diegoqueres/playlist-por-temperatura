@@ -5,8 +5,16 @@ import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,29 +30,38 @@ import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Play
  * @since 29 de jun de 2020
  */
 @Entity
+@Table(name = "recommendations")
 public class Recommendation implements Serializable {
 	private static final long serialVersionUID = 1826513220931085327L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private City city;
-
+	@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant moment;
-
-	private User user;
-
-	private Genre genre;
+	private Instant createdDate;
 
 	@JsonIgnore
 	private Float temperature;
 
 	@Transient
-	private Playlist playlist;
+	private Playlist playlist;	
+	
+	@NotNull
+	private Integer genre;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@ManyToOne
+	@Nullable
+	@JoinColumn(name = "city_id")
+	private City city;
 
 	public Recommendation() {
+		
 	}
 
 	public Long getId() {
@@ -71,12 +88,12 @@ public class Recommendation implements Serializable {
 		this.playlist = playlist;
 	}
 
-	public Instant getMoment() {
-		return moment;
+	public Instant getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setMoment(Instant moment) {
-		this.moment = moment;
+	public void setCreatedDate(Instant createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public User getUser() {
@@ -88,11 +105,12 @@ public class Recommendation implements Serializable {
 	}
 
 	public Genre getGenre() {
-		return genre;
+		return Genre.valueOf(this.genre);
 	}
 
 	public void setGenre(Genre genre) {
-		this.genre = genre;
+		if (genre != null)
+			this.genre = genre.getCode();
 	}
 
 	public Float getTemperature() {
@@ -102,6 +120,11 @@ public class Recommendation implements Serializable {
 	public void setTemperature(Float temperature) {
 		this.temperature = temperature;
 	}
+     
+    @PrePersist
+    public void prePersist() {
+        setCreatedDate(Instant.now());
+    }
 
 	@Override
 	public int hashCode() {
@@ -130,7 +153,7 @@ public class Recommendation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Recommendation [id=" + id + ", city=" + city + ", moment=" + moment + ", user=" + user + ", genre="
+		return "Recommendation [id=" + id + ", city=" + city + ", moment=" + createdDate + ", user=" + user + ", genre="
 				+ genre + ", temperature=" + temperature + ", playlist=" + playlist + "]";
 	}
 
