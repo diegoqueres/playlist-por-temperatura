@@ -44,8 +44,8 @@ public class StatisticsController {
 	 */
 	@GetMapping(value = "/{statisticType}")
 	public ResponseEntity<List<? extends StatisticsInterface>> requestStatistics(@PathVariable String statisticType,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("start_date") LocalDate startDate,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "end_date") LocalDate endDate) 
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "start_date", required=true) LocalDate startDate,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "end_date", required=true) LocalDate endDate) 
 	{		
 		LOG.info("Gerando estatísticas solicitadas pelo usuário. Tipo: {}", statisticType);
 		var type = StatisticType.valueOf(statisticType.toUpperCase());
