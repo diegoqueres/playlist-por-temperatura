@@ -39,6 +39,9 @@ public class RecommendationServiceTest {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Testa a recomendação de playlist por cidade realizada com sucesso.
+	 */
 	@Test
 	public void testRequestRecommendationByCity() {
 		User user = userService.findAll().get(5);
@@ -64,6 +67,9 @@ public class RecommendationServiceTest {
 
 	}
 
+	/**
+	 * Testa a recomendação de playlist por localização realizada com sucesso.
+	 */
 	@Test
 	public void testRequestRecommendationByLatitudeLongitude() {
 		User user = userService.findAll().get(5);
@@ -80,6 +86,10 @@ public class RecommendationServiceTest {
 
 	}
 
+	/**
+	 * Testa a recomendação de playlist por cidade não existente.
+	 * Deve disparar uma exceção: ResourceNotFoundException.
+	 */
 	@Test
 	public void testRequestRecommendationLocationNotFound() {
 		User user = new User();
@@ -97,6 +107,10 @@ public class RecommendationServiceTest {
 
 	}
 
+	/**
+	 * Testa a recomendação de playlist por localização com coordenadas geográficas inválidas.
+	 * Deve disparar uma exceção: IllegalArgumentException.
+	 */
 	@Test
 	public void testRequestRecommendationLocationWithInvalidGeographicCoordinates() {
 		User user = userService.findAll().get(5);
@@ -113,6 +127,7 @@ public class RecommendationServiceTest {
 	/**
 	 * Testa solicitação de recomendação se o usuário estiver em um local inóspito.
 	 * Onde não há uma "cidade" associada à localização.
+	 * Deve enviar a playlist para o usuário, mas sem persistir a entidade cidade.
 	 */
 	@Test
 	public void testRequestRecommendationInAnInhospitablePoint() {
@@ -137,7 +152,7 @@ public class RecommendationServiceTest {
 	}
 
 	/**
-	 * Testa se as temperaturas fornecidas retornam os gêneros corretos.
+	 * Testa se as temperaturas fornecidas retornam os gêneros musicais corretos.
 	 */
 	@Test
 	public void testRecommendationGenreByTemperature() {
