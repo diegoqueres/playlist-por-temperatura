@@ -19,7 +19,7 @@ import org.springframework.lang.Nullable;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import net.diegoqueres.playlistportemperatura.enums.Genre;
+import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
 import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Playlist;
 
 /**
@@ -42,26 +42,26 @@ public class Recommendation implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant createdDate;
 
-	@JsonIgnore
 	private Float temperature;
 
 	@Transient
-	private Playlist playlist;	
-	
+	private Playlist playlist;
+
 	@NotNull
 	private Integer genre;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@ManyToOne
 	@Nullable
 	@JoinColumn(name = "city_id")
 	private City city;
 
 	public Recommendation() {
-		
+
 	}
 
 	public Long getId() {
@@ -120,11 +120,16 @@ public class Recommendation implements Serializable {
 	public void setTemperature(Float temperature) {
 		this.temperature = temperature;
 	}
-     
-    @PrePersist
-    public void prePersist() {
-        setCreatedDate(Instant.now());
-    }
+
+	@JsonIgnore
+	public Country getCountry() {
+		return (getCity() != null ? getCity().getCountry() : null);
+	}
+
+	@PrePersist
+	public void prePersist() {
+		setCreatedDate(Instant.now());
+	}
 
 	@Override
 	public int hashCode() {

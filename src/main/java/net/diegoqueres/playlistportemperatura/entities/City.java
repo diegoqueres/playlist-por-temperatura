@@ -1,6 +1,7 @@
 package net.diegoqueres.playlistportemperatura.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 /**
  * Representa uma cidade onde foi solicitada uma recomendação de playlist.
@@ -35,24 +35,37 @@ public class City implements Serializable {
 	private Float latitude;
 
 	private Float longitude;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "country_id")
 	private Country country;
-	
-	@OneToMany
-	(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Recommendation> recommendations;
 
 	public City() {
+		this.recommendations = new ArrayList<>();
+	}
+
+	public City(String name) {
+		this();
+		this.name = name;
+	}
+
+	public City(Float latitude, Float longitude) {
+		this();
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public City(Long id, String name) {
+		this();
 		this.id = id;
 		this.name = name;
 	}
 
 	public City(Long id, String name, Country country) {
+		this();
 		this.id = id;
 		this.name = name;
 		this.country = country;

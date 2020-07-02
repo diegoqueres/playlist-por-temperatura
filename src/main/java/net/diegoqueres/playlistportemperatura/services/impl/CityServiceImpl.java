@@ -20,6 +20,10 @@ public class CityServiceImpl implements CityService {
 		return repository.findById(id);
 	}
 
+	public Optional<City> findByName(String name) {
+		return repository.findByName(name);
+	}
+
 	public List<City> findAll() {
 		return repository.findAll();
 	}

@@ -12,7 +12,7 @@ import net.diegoqueres.playlistportemperatura.entities.City;
 import net.diegoqueres.playlistportemperatura.entities.Country;
 import net.diegoqueres.playlistportemperatura.entities.Recommendation;
 import net.diegoqueres.playlistportemperatura.entities.User;
-import net.diegoqueres.playlistportemperatura.enums.Role;
+import net.diegoqueres.playlistportemperatura.entities.enums.Role;
 import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Playlist;
 import net.diegoqueres.playlistportemperatura.services.CityService;
 import net.diegoqueres.playlistportemperatura.services.CountryService;

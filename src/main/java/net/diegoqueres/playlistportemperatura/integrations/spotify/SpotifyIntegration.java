@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,7 +20,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import net.diegoqueres.playlistportemperatura.entities.Country;
-import net.diegoqueres.playlistportemperatura.enums.Genre;
+import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
 import net.diegoqueres.playlistportemperatura.integrations.Integration;
 import net.diegoqueres.playlistportemperatura.integrations.exception.IntegrationException;
 import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Artist;
@@ -41,10 +42,12 @@ import net.diegoqueres.playlistportemperatura.utils.RandomUtils;
 public class SpotifyIntegration implements Integration<SpotifyInput, Playlist> {
 	private static final Logger LOG = LoggerFactory.getLogger(SpotifyIntegration.class);
 
-	private static final String SPOTIFY_CLIENTCODE_BASE64 = "YzkyMDY3MjM4M2ZiNDhlNjlmZTMwZTY1NjFlOTQwYWE6MDY2OTYwY2JhYjUyNGU3MjkzNTc0Y2ZiNTNiNjVkNDg=";
 	private static final String SPOTIFY_URL_TOKEN = "https://accounts.spotify.com/api/token";
 	private static final String SPOTIFY_URL_SEARCH = "https://api.spotify.com/v1/search";
 	private static final int LIMIT_SONGS_RETURNED = 50;
+	
+	@Value("${spotify.api.clientecode}")
+	private String spotifyClienteCode;
 
 	@Override
 	public Playlist integrate(SpotifyInput input) {
@@ -105,7 +108,7 @@ public class SpotifyIntegration implements Integration<SpotifyInput, Playlist> {
 	private TokenMapper getToken() {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		httpHeaders.add("Authorization", "Basic " + SPOTIFY_CLIENTCODE_BASE64);
+		httpHeaders.add("Authorization", "Basic " + spotifyClienteCode);
 
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 		map.add("grant_type", "client_credentials");

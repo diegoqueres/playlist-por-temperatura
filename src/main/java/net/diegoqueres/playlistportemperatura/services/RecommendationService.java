@@ -1,9 +1,13 @@
 package net.diegoqueres.playlistportemperatura.services;
 
+import java.util.List;
+
 import net.diegoqueres.playlistportemperatura.entities.City;
 import net.diegoqueres.playlistportemperatura.entities.Recommendation;
 import net.diegoqueres.playlistportemperatura.entities.User;
-import net.diegoqueres.playlistportemperatura.enums.Genre;
+import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
+import net.diegoqueres.playlistportemperatura.entities.statistics.StatisticsInterface;
+import net.diegoqueres.playlistportemperatura.services.enums.StatisticType;
 
 /**
  * Serviço que realiza as recomendações e gera dados para estatísticas das

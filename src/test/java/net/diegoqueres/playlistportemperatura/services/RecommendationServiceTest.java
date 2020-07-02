@@ -17,8 +17,8 @@ import net.diegoqueres.playlistportemperatura.entities.City;
 import net.diegoqueres.playlistportemperatura.entities.Country;
 import net.diegoqueres.playlistportemperatura.entities.Recommendation;
 import net.diegoqueres.playlistportemperatura.entities.User;
-import net.diegoqueres.playlistportemperatura.enums.Genre;
-import net.diegoqueres.playlistportemperatura.enums.Role;
+import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
+import net.diegoqueres.playlistportemperatura.entities.enums.Role;
 import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Playlist;
 import net.diegoqueres.playlistportemperatura.repositories.UserRepository;
 import net.diegoqueres.playlistportemperatura.services.exceptions.ResourceNotFoundException;
@@ -132,7 +132,7 @@ public class RecommendationServiceTest {
 		assertFalse(playlist.getMusics().isEmpty());
 		
 		//Verifica se não foi salva localidade não registrada
-		assertNull(recommendation.getCity());
+		assertNull(recommendation.getCity().getId());
 
 	}
 

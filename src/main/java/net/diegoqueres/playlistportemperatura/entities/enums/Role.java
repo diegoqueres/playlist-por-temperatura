@@ -1,4 +1,4 @@
-package net.diegoqueres.playlistportemperatura.enums;
+package net.diegoqueres.playlistportemperatura.entities.enums;
 
 /**
  * Representa o papel que usuários podem ter na aplicação.

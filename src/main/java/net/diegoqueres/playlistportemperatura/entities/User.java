@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import net.diegoqueres.playlistportemperatura.enums.Role;
+import net.diegoqueres.playlistportemperatura.entities.enums.Role;
 
 /**
  * Representa um usuário da aplicação.
@@ -42,6 +42,7 @@ public class User implements Serializable {
 	private String email;
 
 	@NotNull
+	@JsonIgnore
 	private String password;
 
 	@NotNull

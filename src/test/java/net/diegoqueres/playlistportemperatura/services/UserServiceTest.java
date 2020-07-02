@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import net.diegoqueres.playlistportemperatura.entities.User;
-import net.diegoqueres.playlistportemperatura.enums.Role;
+import net.diegoqueres.playlistportemperatura.entities.enums.Role;
 import net.diegoqueres.playlistportemperatura.services.exceptions.ResourceAlreadyExistsException;
 
 @SpringBootTest

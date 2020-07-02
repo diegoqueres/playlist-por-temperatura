@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -35,7 +36,9 @@ public class OpenWeatherIntegration implements Integration<City, Weather> {
 	private static final Logger LOG = LoggerFactory.getLogger(OpenWeatherIntegration.class);
 
 	private static final String URL_OPENWEATHER = "http://api.openweathermap.org/data/2.5/weather";
-	private static final String API_KEY = "cae277ea4e6dcbc805b00dc655299d82";
+	
+	@Value("${openweather.api.key}")
+	private String apiKey;
 
 	public OpenWeatherIntegration() {
 	}
@@ -92,10 +95,10 @@ public class OpenWeatherIntegration implements Integration<City, Weather> {
 	private String getUrlToIntegrate(City city) {
 		Optional<String> cityName = Optional.ofNullable(city.getName());
 		if (cityName.isPresent() && !cityName.isEmpty()) {
-			return String.format("%s?appid=%s&q=%s&units=metric", URL_OPENWEATHER, API_KEY, city.getName());
+			return String.format("%s?appid=%s&q=%s&units=metric", URL_OPENWEATHER, apiKey, city.getName());
 		} else {
 			validateLocation(city.getLatitude(), city.getLongitude());
-			return String.format("%s?appid=%s&lat=%.6f&lon=%.6f&units=metric", URL_OPENWEATHER, API_KEY,
+			return String.format("%s?appid=%s&lat=%.6f&lon=%.6f&units=metric", URL_OPENWEATHER, apiKey,
 					city.getLatitude(), city.getLongitude());
 		}
 	}

@@ -3,7 +3,7 @@ package net.diegoqueres.playlistportemperatura.integrations.spotify.entities;
 import java.util.Optional;
 
 import net.diegoqueres.playlistportemperatura.entities.Country;
-import net.diegoqueres.playlistportemperatura.enums.Genre;
+import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
 
 /**
  * Dados de entrada para solicitar uma playlist na API do Spotify.

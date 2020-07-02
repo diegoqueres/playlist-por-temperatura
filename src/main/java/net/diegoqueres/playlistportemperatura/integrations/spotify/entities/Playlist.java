@@ -3,7 +3,9 @@ package net.diegoqueres.playlistportemperatura.integrations.spotify.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.diegoqueres.playlistportemperatura.enums.Genre;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
 
 /**
  * Representa uma playlist sugerida pela aplicação (em memória).
@@ -13,7 +15,9 @@ import net.diegoqueres.playlistportemperatura.enums.Genre;
  *
  */
 public class Playlist {
+	@JsonIgnore
 	private Genre genre;
+
 	private List<Music> musics;
 
 	public Playlist() {
