@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.diegoqueres.playlistportemperatura.entities.City;
-import net.diegoqueres.playlistportemperatura.entities.Country;
 import net.diegoqueres.playlistportemperatura.entities.Recommendation;
 import net.diegoqueres.playlistportemperatura.entities.User;
 import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
@@ -49,7 +48,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 		var recommendation = new Recommendation();
 
 		Optional.ofNullable(weather.getCity()).ifPresent((c) -> {
-			var countryObj = countryService.findById(c.getCountry().getId())
+			countryService.findById(c.getCountry().getId())
 					.orElse(countryService.insert(c.getCountry()));
 			var cityObj = cityService.findById(c.getId()).orElse(cityService.insert(c));
 			recommendation.setCity(cityObj);

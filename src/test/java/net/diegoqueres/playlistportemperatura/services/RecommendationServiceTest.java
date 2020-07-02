@@ -1,13 +1,11 @@
 package net.diegoqueres.playlistportemperatura.services;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +18,6 @@ import net.diegoqueres.playlistportemperatura.entities.User;
 import net.diegoqueres.playlistportemperatura.entities.enums.Genre;
 import net.diegoqueres.playlistportemperatura.entities.enums.Role;
 import net.diegoqueres.playlistportemperatura.integrations.spotify.entities.Playlist;
-import net.diegoqueres.playlistportemperatura.repositories.UserRepository;
 import net.diegoqueres.playlistportemperatura.services.exceptions.ResourceNotFoundException;
 
 /**

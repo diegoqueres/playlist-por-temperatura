@@ -30,6 +30,7 @@ public class RecommendationController {
 
 	@GetMapping(value = "/city/{cityName}")
 	public ResponseEntity<Recommendation> requestRecommendationByCity(@PathVariable String cityName) {
+		LOG.info("Requisição de playlist para cidade: {}", cityName);
 		var fakeUser = userService.findAll().get(0); // temporário até incluir camada de segurança
 		var city = new City(cityName);
 		var recommendation = service.requestRecommendation(fakeUser, city);
@@ -42,6 +43,7 @@ public class RecommendationController {
 	public ResponseEntity<Recommendation> requestRecommendationByLocation(
 			@RequestParam(value = "lat", required = true) Float lat,
 			@RequestParam(value = "lng", required = true) Float lng) {
+		LOG.info("Requisição de playlist para localidade: Lat {}, Lng {}", lat, lng);
 		var fakeUser = userService.findAll().get(0); // temporário até incluir camada de segurança
 		var city = new City(lat, lng);
 		var recommendation = service.requestRecommendation(fakeUser, city);

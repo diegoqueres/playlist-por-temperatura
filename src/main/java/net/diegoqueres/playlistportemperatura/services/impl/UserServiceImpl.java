@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.diegoqueres.playlistportemperatura.controllers.RecommendationController;
 import net.diegoqueres.playlistportemperatura.entities.User;
 import net.diegoqueres.playlistportemperatura.entities.enums.Role;
 import net.diegoqueres.playlistportemperatura.repositories.UserRepository;
