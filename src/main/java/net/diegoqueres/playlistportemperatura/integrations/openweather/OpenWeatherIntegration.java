@@ -45,7 +45,6 @@ public class OpenWeatherIntegration implements Integration<City, Weather> {
 	}
 
 	@Override
-	@Cacheable("weather")
 	public Weather integrate(City city) {
 		LOG.info("Integrating to get location data from {}", city);
 		RestTemplate restTemplate = new RestTemplate();
@@ -60,7 +59,7 @@ public class OpenWeatherIntegration implements Integration<City, Weather> {
 
 			if (response.getStatusCode().equals(HttpStatus.OK) && !Objects.isNull(response.getBody())) {
 				weather = parseToWeather(response.getBody());
-			}
+			} 
 
 		} catch (HttpClientErrorException ex) {
 			if (ex.getRawStatusCode() == HttpStatus.NOT_FOUND.value()) {

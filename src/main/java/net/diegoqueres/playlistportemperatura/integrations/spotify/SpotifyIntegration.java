@@ -84,6 +84,7 @@ public class SpotifyIntegration implements Integration<SpotifyInput, Playlist> {
 	/**
 	 * Loga o conteúdo da playlist.
 	 * 
+	 * 
 	 * @param playlist
 	 */
 	private void logPlaylistContent(Playlist playlist) {

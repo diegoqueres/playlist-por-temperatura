@@ -93,12 +93,7 @@ public class RecommendationServiceTest {
 	@Test
 	@WithMockUser
 	public void testRequestRecommendationLocationNotFound() {
-		User user = new User();
-		user.setName("Teste");
-		user.setEmail("dkfdfkdkfk34939493@user.com.br");
-		user.setPassword("oeorieor3430340930");
-		user.setRole(Role.USER);
-		
+		User user = userService.findAll().get(5);
 		City city = new City();
 		city.setName("d343434adfdfdr434343cadabralslsl");
 
