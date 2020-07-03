@@ -44,8 +44,6 @@ Subir e rodar um novo container a partir da imagem recém-criada
 sudo docker container run --network playlist-por-temperatura--mysql --name playlist-por-temperatura-container -p 8080:8080 -d playlist-por-temperatura
 ```
 
-Acesse os endpoints através da url http://localhost:8080.
-
 
 ### Documentação
 * Acesse a documentação dos endpoints pela url http://localhost:8080/swagger-ui.html
