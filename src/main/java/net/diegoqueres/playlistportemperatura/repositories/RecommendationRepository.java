@@ -21,26 +21,21 @@ import net.diegoqueres.playlistportemperatura.entities.statistics.Recommendation
 @Repository
 public interface RecommendationRepository extends JpaRepository<Recommendation, Long> {
 
-	  /**
-	   * Gera estatísticas de uso das recomendações agrupadas por cidade.
-	   * 
-	   * @param startDate Data início das recomendações.
-	   * @param endDate Data fim das recomendações.
-	   * @return
-	   */
-	  @Query(nativeQuery = true, value = 
-	  "SELECT  " 
-	  + "   cit.NAME as cityName, coun.CODE as countryCode, COUNT(*) as usageCount  "
-	  + "		FROM    " 
-	  + "			recommendations recom    " 
-	  + "			INNER JOIN cities cit ON recom.CITY_ID = cit.ID    " 
-	  + "			INNER JOIN countries coun ON cit.COUNTRY_ID  = coun.ID   " 
-	  + "		WHERE    " 
-	  + "			recom.CREATED_DATE BETWEEN :startDate AND :endDate   " 
-	  + "		GROUP BY   " 
-	  + "			cit.NAME, coun.CODE "
-	  + "   ORDER BY usageCount DESC"
-	  )
-	  List<RecommendationByCityStatistics> getRecommendationByCityStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-	  
+	/**
+	 * Gera estatísticas de uso das recomendações agrupadas por cidade.
+	 * 
+	 * @param startDate Data início das recomendações.
+	 * @param endDate   Data fim das recomendações.
+	 * @return
+	 */
+	@Query(nativeQuery = true, value = "SELECT  "
+			+ "   cit.NAME as cityName, coun.CODE as countryCode, COUNT(*) as usageCount  " + "		FROM    "
+			+ "			recommendations recom    " + "			INNER JOIN cities cit ON recom.CITY_ID = cit.ID    "
+			+ "			INNER JOIN countries coun ON cit.COUNTRY_ID  = coun.ID   " + "		WHERE    "
+			+ "			recom.CREATED_DATE BETWEEN :startDate AND :endDate   " + "		GROUP BY   "
+			+ "			cit.NAME, coun.CODE " + "   ORDER BY usageCount DESC")
+	List<RecommendationByCityStatistics> getRecommendationByCityStatistics(
+			@Param("startDate") LocalDate startDate,
+			@Param("endDate") LocalDate endDate);
+
 }
