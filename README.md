@@ -13,7 +13,7 @@ A API REST Playlist por temperatura contém as seguintes características:
 
 
 ### Como executar a aplicação
-A aplicação pode ser rodada através de um container no Docker. Os conteineres ficarão estruturados da seguinte forma:
+A aplicação pode ser rodada através de um container no Docker. Os conteineres ficarão estruturados de forma semelhante à arquitetura abaixo:
 
 ![Arquitetura da aplicação em ambiente de desenvolvimento no DOCKER](https://www.javainuse.com/docker-7-14-min.JPG)
 
