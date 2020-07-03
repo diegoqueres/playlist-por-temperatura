@@ -8,9 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.diegoqueres.playlistportemperatura.dtos.UserDto;
 import net.diegoqueres.playlistportemperatura.entities.User;
 import net.diegoqueres.playlistportemperatura.entities.enums.Role;
 import net.diegoqueres.playlistportemperatura.repositories.UserRepository;
+import net.diegoqueres.playlistportemperatura.security.PasswordEncoder;
 import net.diegoqueres.playlistportemperatura.services.UserService;
 import net.diegoqueres.playlistportemperatura.services.exceptions.ResourceAlreadyExistsException;
 import net.diegoqueres.playlistportemperatura.services.exceptions.ResourceNotFoundException;
@@ -22,14 +24,12 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
 
-	@Override
-	public User authenticate(String email, String password) {
-		return new User(1, email, password, Role.USER, "Usuário da Silva");
-	}
 
 	@Override
 	public User signUp(User user) {
 		validateEmail(user.getEmail());
+		user.setRole(Role.USER);
+		user.setPassword(PasswordEncoder.encodePassword(user.getPassword()));
 		LOG.info("Salvando novo usuário: {}", user);
 		return repository.save(user);
 	}
@@ -50,7 +50,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findAll() {
+		LOG.info("Recuperando todos os usuários.");
 		return repository.findAll();
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		LOG.info("Buscando usuário por e-mail: {}", email);
+		Optional<User> obj = repository.findByEmail(email);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(email));
+	}
+	
+	@Override
+	public User fromDTO(UserDto objDto) {
+		return new User(objDto.getEmail(), objDto.getPassword(), objDto.getName());
 	}
 
 }

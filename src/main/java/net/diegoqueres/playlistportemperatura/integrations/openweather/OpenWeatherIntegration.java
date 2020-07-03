@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -44,6 +45,7 @@ public class OpenWeatherIntegration implements Integration<City, Weather> {
 	}
 
 	@Override
+	@Cacheable("weather")
 	public Weather integrate(City city) {
 		LOG.info("Integrating to get location data from {}", city);
 		RestTemplate restTemplate = new RestTemplate();

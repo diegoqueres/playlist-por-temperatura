@@ -20,22 +20,13 @@ public class UserServiceTest {
 	@Autowired
 	private UserService service;
 
-	/**
-	 * Testa a autenticação do usuário na aplicação.
-	 */
-	@Test
-	public void testAuthenticate() {
-		var user = service.authenticate("user@user.com", "dkf39493jk");
-		assertNotNull(user);
-		assertNotNull(user.getId());
-	}
 
 	/**
 	 * Testa o cadastro de um novo usuário.
 	 */
 	@Test
 	public void testSignUp() {
-		var user = new User(null, "user@user.com", "dkf39493jk", Role.USER, "Usuário da Silva");
+		var user = new User("user3434@user.com", "dkf39493jk", "Usuário da Silva");
 		var newUser = service.signUp(user);
 		assertNotNull(newUser);
 		assertNotNull(newUser.getId());

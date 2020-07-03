@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,28 +34,39 @@ public class ControllerExceptionHandler {
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
 				request.getRequestURI());
-		LOG.warn("Resource not found {} {}: {}", status.value(), error, e.getMessage());
+		LOG.warn("{} {}: {}", status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<StandardError> database(IllegalArgumentException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> invalidParameters(IllegalArgumentException e, HttpServletRequest request) {
 		String error = "Invalid parameters were provided";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
 				request.getRequestURI());
-		LOG.warn("Invalid arguments {} {}: {}", status.value(), error, e.getMessage());
+		LOG.warn("{} {}: {}", status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 
 	@ExceptionHandler(MissingServletRequestParameterException.class)
-	public ResponseEntity<StandardError> database(MissingServletRequestParameterException e,
+	public ResponseEntity<StandardError> missingParameters(MissingServletRequestParameterException e,
 			HttpServletRequest request) {
 		String error = "Required parameters is missing to process the request";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
 				request.getRequestURI());
-		LOG.warn("Required parameters is missing {} {}: {}", status.value(), error, e.getMessage());
+		LOG.warn("{} {}: {}", status.value(), error, e.getMessage());
+		return ResponseEntity.status(status).body(err);
+	}
+
+	@ExceptionHandler({ AuthenticationException.class })
+	public ResponseEntity<StandardError> authenticationException(AuthenticationException e,
+			HttpServletRequest request) {
+		String error = "Authentication Exception";
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
+				request.getRequestURI());
+		LOG.warn("{} {}: {}", status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 

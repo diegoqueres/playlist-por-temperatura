@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 class RandomUtilsTest {
 
@@ -13,6 +14,7 @@ class RandomUtilsTest {
 	 * 
 	 */
 	@Test
+	@WithMockUser
 	void testGetRandomSearch() {
 		assertDoesNotThrow(() -> {
 			var result = RandomUtils.getRandomSearch();

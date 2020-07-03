@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 
 import net.diegoqueres.playlistportemperatura.services.enums.StatisticType;
@@ -30,6 +31,7 @@ class StatisticsServiceTest {
 	 * Testa o retorno das estatísticas quando a solicitação ocorre normalmente.
 	 */
 	@Test
+	@WithMockUser
 	void testGenerateStatistics() {
 		LocalDate startDate = LocalDate.now().plusDays(-7);
 		LocalDate endDate = LocalDate.now().plusDays(1);

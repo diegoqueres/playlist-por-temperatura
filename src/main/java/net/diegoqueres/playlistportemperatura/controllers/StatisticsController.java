@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,7 @@ public class StatisticsController {
 	 * @param endDate Data fim para consulta.
 	 * @return Estatísticas geradas.
 	 */
+	
 	@GetMapping(value = "/{statisticType}")
 	public ResponseEntity<List<? extends StatisticsInterface>> requestStatistics(@PathVariable String statisticType,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "start_date", required=true) LocalDate startDate,

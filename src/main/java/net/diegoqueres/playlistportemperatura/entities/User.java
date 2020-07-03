@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import net.diegoqueres.playlistportemperatura.entities.enums.Role;
+import net.diegoqueres.playlistportemperatura.security.enums.SecurityRole;
 
 /**
  * Representa um usuário da aplicação.
@@ -39,6 +43,7 @@ public class User implements Serializable {
 	private Integer id;
 
 	@NotNull
+	@Column(unique = true)
 	private String email;
 
 	@NotNull
@@ -78,6 +83,13 @@ public class User implements Serializable {
 		this.email = email;
 		setRole(role);
 	}
+	
+	public User(String email, String password, String name) {
+		this();
+		this.email = email;
+		this.password = password;
+		this.name = name;
+	}
 
 	public Integer getId() {
 		return id;
@@ -97,6 +109,11 @@ public class User implements Serializable {
 
 	public Role getRole() {
 		return Role.valueOf(role);
+	}
+
+	@Enumerated(EnumType.STRING)
+	public SecurityRole getSecurityRole() {
+		return SecurityRole.valueOf(String.format("ROLE_%s", getRole().toString().toUpperCase()));
 	}
 
 	public void setRole(Role role) {

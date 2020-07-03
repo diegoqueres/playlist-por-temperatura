@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import net.diegoqueres.playlistportemperatura.entities.statistics.StatisticsInterface;
@@ -18,6 +19,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 	private RecommendationRepository recommendationRepository;
 
 	@Override
+	@Cacheable("statistics")
 	public List<? extends StatisticsInterface> generateStatistics(StatisticType type, LocalDate startDate, LocalDate endDate) {
 		switch (type) {
 			case RECOMMENDATIONS_BY_CITY:

@@ -2,6 +2,7 @@ package net.diegoqueres.playlistportemperatura.services;
 
 import java.util.List;
 
+import net.diegoqueres.playlistportemperatura.dtos.UserDto;
 import net.diegoqueres.playlistportemperatura.entities.User;
 
 /**
@@ -13,15 +14,6 @@ import net.diegoqueres.playlistportemperatura.entities.User;
  *
  */
 public interface UserService {
-
-	/**
-	 * Autenticação de usuário para usar a API.
-	 * 
-	 * @param email
-	 * @param password
-	 * @return
-	 */
-	User authenticate(String email, String password);
 
 	/**
 	 * Cadastro de usuário para usar a API.
@@ -45,13 +37,28 @@ public interface UserService {
 	 * @return
 	 */
 	User findById(Integer id);
-	
-	
+
+	/**
+	 * Busca um usuário pelo seu endereço de e-mail.
+	 * 
+	 * @param email
+	 * @return
+	 */
+	User findByEmail(String email);
+
 	/**
 	 * Retorna todos os usuários.
 	 * 
 	 * @return
 	 */
 	List<User> findAll();
+
+	/**
+	 * Recupera um objeto User a partir de um DTO.
+	 * 
+	 * @param objDto
+	 * @return
+	 */
+	User fromDTO(UserDto objDto);
 
 }

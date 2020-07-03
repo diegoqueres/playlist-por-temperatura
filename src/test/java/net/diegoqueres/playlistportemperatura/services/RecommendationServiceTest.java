@@ -1,14 +1,15 @@
 package net.diegoqueres.playlistportemperatura.services;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 
 import net.diegoqueres.playlistportemperatura.entities.City;
@@ -40,6 +41,7 @@ public class RecommendationServiceTest {
 	 * Testa a recomendação de playlist por cidade realizada com sucesso.
 	 */
 	@Test
+	@WithMockUser
 	public void testRequestRecommendationByCity() {
 		User user = userService.findAll().get(5);
 		Country country = new Country();
@@ -68,6 +70,7 @@ public class RecommendationServiceTest {
 	 * Testa a recomendação de playlist por localização realizada com sucesso.
 	 */
 	@Test
+	@WithMockUser
 	public void testRequestRecommendationByLatitudeLongitude() {
 		User user = userService.findAll().get(5);
 		City city = new City();
@@ -88,6 +91,7 @@ public class RecommendationServiceTest {
 	 * Deve disparar uma exceção: ResourceNotFoundException.
 	 */
 	@Test
+	@WithMockUser
 	public void testRequestRecommendationLocationNotFound() {
 		User user = new User();
 		user.setName("Teste");
@@ -109,6 +113,7 @@ public class RecommendationServiceTest {
 	 * Deve disparar uma exceção: IllegalArgumentException.
 	 */
 	@Test
+	@WithMockUser
 	public void testRequestRecommendationLocationWithInvalidGeographicCoordinates() {
 		User user = userService.findAll().get(5);
 		City city = new City();
@@ -127,6 +132,7 @@ public class RecommendationServiceTest {
 	 * Deve enviar a playlist para o usuário, mas sem persistir a entidade cidade.
 	 */
 	@Test
+	@WithMockUser
 	public void testRequestRecommendationInAnInhospitablePoint() {
 		final int LAT = 0, LNG = 1;
 		float[] SOUTH_PACIFIC_LOCATION = new float[] { -35.7542865f, -135.3123678f };
@@ -152,6 +158,7 @@ public class RecommendationServiceTest {
 	 * Testa se as temperaturas fornecidas retornam os gêneros musicais corretos.
 	 */
 	@Test
+	@WithMockUser
 	public void testRecommendationGenreByTemperature() {
 
 		// Baixas temperaturas devem obter música clássica.

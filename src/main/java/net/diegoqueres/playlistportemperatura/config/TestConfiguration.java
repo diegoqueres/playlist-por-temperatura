@@ -28,7 +28,7 @@ import net.diegoqueres.playlistportemperatura.services.UserService;
  */
 @Configuration
 @Profile("test")
-public class TestConfig implements CommandLineRunner {
+public class TestConfiguration implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
